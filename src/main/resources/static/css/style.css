@@ -1,0 +1,13 @@
+/*=====================
+HEADER
+=====================*/
+
+.navbar-custom {
+    background-color: #8249d5;
+}
+.navbar-custom .nav-link, .navbar-custom .navbar-brand {
+    color: #fff;
+}
+.navbar-custom .nav-link:hover {
+    color: #d3c0f7;
+}

@@ -1,15 +1,103 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" >
+    <head th:fragment="head">
+        <title>WowGames</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+        <script th:src="@{/js/rutina.js}" type="text/javascript"></script>
     </head>
     <body>
-        <div>TODO write content</div>
+        <header th:fragment="header">
+            <nav class="navbar navbar-expand-xl navbar-custom">
+                <div class="container-fluid">
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="#">
+                        <img src="logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                        Mi Sitio
+                    </a>
+                    <!-- Botón para vista móvil -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!-- Menú -->
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#inicio">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#juegos">Juegos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#calendario">Calendario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#noticias">Noticias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#foros">Foros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#transmision">Transmisión</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#ingresar">Ingresar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <footer th:fragment="footer" class="bg-dark text-white py-4 mt-3">
+            <div class="container text-center">
+                <!-- Idiomas -->
+                <div class="mb-3">
+                    <a href="#" class="text-white text-decoration-none me-3">Español</a>
+                    <a href="#" class="text-white text-decoration-none">Inglés</a>
+                </div>
+                <!-- Redes sociales -->
+                <div class="mb-3">
+                    <a href="#" class="text-white me-3">
+                        <i class="fab fa-facebook fa-2x"></i>
+                    </a>
+                    <a href="#" class="text-white me-3">
+                        <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                    <a href="#" class="text-white">
+                        <i class="fab fa-youtube fa-2x"></i>
+                    </a>
+                </div>
+                <!-- Título -->
+                <h5 class="text-uppercase mb-3" style="color: #8249d5;">WowGames</h5>
+                <!-- Descripción -->
+                <p class="small mb-4">
+                    © 2024 WowGames. Todos los derechos reservados.<br/>
+                    WowGames es una iniciativa que ofrece una variedad de títulos de videojuegos para entretener y conocer acerca de ellos. 
+                    Disfruta de una experiencia única! Todas las marcas registradas pertenecen a 
+                    sus respectivos dueños en EE. UU. y otros países. <br/> <br/>
+                    <a href="#" class="text-white text-decoration-none">Política de Privacidad</a> |
+                    <a href="#" class="text-white text-decoration-none">Información legal</a> |
+                    <a href="#" class="text-white text-decoration-none">Acuerdo de Cuenta a WowGames</a> |
+                    <a href="#" class="text-white text-decoration-none">Cookies</a>
+                </p>
+                <!-- Enlaces adicionales -->
+                <div class="d-flex justify-content-center gap-4">
+                    <a href="#" class="text-white text-decoration-none small">Apoya a un creador</a>
+                    <a href="#" class="text-white text-decoration-none small">Servicios en línea</a>
+                    <a href="#" class="text-white text-decoration-none small">Regalías de la comunidad</a>
+                    <a href="#" class="text-white text-decoration-none small">Información de torneos</a>
+                </div>
+            </div>
+        </footer>
+
     </body>
 </html>
