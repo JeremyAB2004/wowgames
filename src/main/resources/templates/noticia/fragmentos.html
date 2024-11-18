@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>WowGames</title>
+    </head>
+    <body>
+        <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarNoticia">
+                            <i class="fas fa-plus"></i> Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2 Fragmento para agregar noticia, es la ventana modal -->
+        <section th:fragment="agregarNoticia">
+            <div id="agregarNoticia" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">Agregar noticia</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/noticia/guardar}" th:object="${noticia}"
+                              method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="titulo">Título</label>
+                                    <input type="text" class="form-control" name="titulo" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion">Descripción</label>
+                                    <textarea class="form-control" name="descripcion" required="true" rows="3"></textarea>  
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estado">Estado</label>
+                                    <input class="form-check-input" type="checkbox" name="estado" id="estado"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imagen">Ruta imagen</label>
+                                    <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
+                                    <img id="blah" src="#" alt="your image" height="200"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad noticia -->
+        <section th:fragment="listadoNoticias" id="noticias">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Tabla de noticias</h4>
+                            </div>
+                            <div th:if="${noticias != null and !noticias.empty}">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Título</th>
+                                            <th>Descripción</th>
+                                            <th>Estado</th>
+                                            <th>Creado</th>
+                                            <th>Modificado</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="noticia, contador : ${noticias}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${noticia.titulo}]]</td>
+                                            <td>[[${noticia.descripcion}]]</td>
+                                            <td th:text="${noticia.estado} ? 'Activo' : 'Inactivo'" />
+                                            <td>[[${noticia.fechaCreacion}]]</td>
+                                            <td>[[${noticia.fechaModificacion}]]</td>
+                                            <td><a th:href="@{/noticia/modificar/}+${noticia.idNoticia}"
+                                                   class="btn btn-warning">
+                                                    <i class="fas fa-pencil"></i> Editar</a>
+                                                <a th:href="@{/noticia/eliminar/}+${noticia.idNoticia}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i> Eliminar</a></td></tr>
+                                    </tbody>
+                                </table>
+                                <div class="px-3">
+                                    <p><b>Total:</b> [[${totalNoticias}]]</p>
+                                </div>
+                            </div>
+                            <div class="text-center p-2" th:if="${noticias == null or noticias.empty}">
+                                <span>Lista Vacía</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 Fragmento que se utiliza en la página modifca.html -->
+        <section th:fragment="editarNoticia">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/noticia/guardar}" 
+                          th:object="${noticia}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="idNoticia" th:field="*{idNoticia}"/>
+                        <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
+                        <section th:replace="~{noticia/fragmentos :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>[[#{accion.actualizar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="titulo">Título</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="titulo" th:field="*{titulo}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="descripcion">Descripción</label>
+                                                    <textarea class="form-control" 
+                                                           name="descripcion" th:field="*{descripcion}"
+                                                           required="true" rows="3"></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="estado">Estado</label>
+                                                    <input class="form-check-input" 
+                                                           type="checkbox" 
+                                                           name="estado" 
+                                                           id="estado"
+                                                           th:field="*{estado}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="imagen">Ruta imagen</label>
+                                                    <input class="form-control" type="file" name="imagenFile"
+                                                           onchange="readURL(this);" />
+                                                    <img id="blah" th:src="@{${noticia.rutaImagen}}" alt="your image" height="200"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/noticia/listado}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Regresar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">                                
+                        <a th:href="@{/noticia/eliminar/}+${noticia.idNoticia}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
