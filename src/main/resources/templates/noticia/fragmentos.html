@@ -198,5 +198,16 @@
                 </div>
             </div>
         </section>
+        
+        <section class="container" th:fragment="inicioNoticias">
+            <div class="row my-5" th:if="${noticias != null and !noticias.empty}">
+                <h2 style="color:purple">Noticia</h2>
+                <div class="col-3" th:each="noticia, contador : ${noticias}">
+                    <img th:src="@{${noticia.rutaImagen}}" height="200" width="100%">
+                        <p class="text-center"><b>[[${noticia.titulo}]]</b></p>
+                        <p>[[${noticia.descripcion}]]</p>
+                </div>
+            </div>
+        </section>
     </body>
 </html>

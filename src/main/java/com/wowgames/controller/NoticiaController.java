@@ -33,6 +33,14 @@ public class NoticiaController {
     public String noticiaNuevo(Noticia noticia) {
         return "/noticia/modifica";
     }
+    
+    @GetMapping("/inicio")
+    public String noticiaInicio(Model model) {
+        var noticias = noticiaService.getNoticias(false);
+        model.addAttribute("noticias", noticias);
+        model.addAttribute("totalNoticias", noticias.size());
+        return "/noticia/inicio";
+    }
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
