@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+
+        <section class="container" th:fragment="inicioForo">
+            <div class="row my-5" th:if="${foros != null and !foros.empty}">
+                <h2 class="text-center mb-4" style="color:purple;">Juegos</h2>
+                <div class="col-md-12 mb-4" th:each="foro, contador : ${foros}">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <!-- Título del foro -->
+                            <h5 class="card-title" th:text="${foro.titulo}">Título del Foro</h5>
+                            <!-- Descripción del foro -->
+                            <p class="card-text text-muted" th:text="${foro.descripcion}">
+                                Descripción breve del foro o tema relacionado.
+                            </p>
+                            <!-- Botones de acción -->
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-danger btn-sm" th:href="'eliminar/'+${foro.idForo}">
+                                    Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="container my-5" th:fragment="nuevoForo">
+            <h2 class="text-center mb-4" style="color:purple;">Crear Nuevo Mensaje</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form th:action="@{/foro/guardar}" th:object="${foro}"
+                              method="POST" class="was-validated">
+                        <!-- Campo de texto para el título -->
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ingrese el título del mensaje" required/>
+                        </div>
+                        <!-- Área de texto para la descripción -->
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="4" placeholder="Ingrese la descripción del mensaje" required></textarea>
+                        </div>
+                        <!-- Botón de envío -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+    </body>
+</html>

@@ -199,11 +199,12 @@
             </div>
         </section>
         <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
-        <section th:fragment="inicioJuegos">
-            <div class="row" th:if="${juegos != null and !juegos.empty}">
+        <section class="container" th:fragment="inicioJuegos">
+            <div class="row my-5" th:if="${juegos != null and !juegos.empty}">
+                <h2 style="color:purple">Juegos</h2>
                 <div class="col-3" th:each="juego, contador : ${juegos}">
                     <img th:src="@{${juego.rutaImagen}}" height="200" width="100%">
-                    <p>[[${juego.nombre}]]</p>
+                        <p class="text-center"><b>[[${juego.nombre}]]</b></p>
                 </div>
             </div>
         </section>

@@ -33,6 +33,14 @@ public class JuegoController {
     public String juegoNuevo(Juego juego) {
         return "/juego/modifica";
     }
+    
+    @GetMapping("/inicio")
+    public String juegoInicio(Model model) {
+        var juegos = juegoService.getJuegos(false);
+        model.addAttribute("juegos", juegos);
+        model.addAttribute("totalJuegos", juegos.size());
+        return "/juego/inicio";
+    }
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
