@@ -34,6 +34,14 @@ public class TransmisionController {
         return "/transmision/modifica";
     }
 
+    @GetMapping("/inicio")
+    public String transmisionInicio(Model model) {
+        var transmisiones = transmisionService.getTransmisiones(false);
+        model.addAttribute("transmisiones", transmisiones);
+        model.addAttribute("totalTransmisiones", transmisiones.size());
+        return "/transmision/inicio";
+    }
+    
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
     

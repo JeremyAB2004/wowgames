@@ -198,5 +198,15 @@
                 </div>
             </div>
         </section>
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section class="container" th:fragment="inicioTransmisiones">
+            <div class="row my-5" th:if="${transmisiones != null and !transmisiones.empty}">
+                <h2 style="color:purple">Transmisiones</h2>
+                <div class="col-4" th:each="transmision, contador : ${transmisiones}">
+                    <iframe th:src="@{${transmision.link}}" th:title="@{${transmision.titulo}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <p class="text-center"><b>[[${transmision.titulo}]]</b></p>
+                </div>
+            </div>
+        </section>
     </body>
 </html>
