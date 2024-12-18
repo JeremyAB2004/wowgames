@@ -33,6 +33,14 @@ public class CalendarioController {
     public String calendarioNuevo(Calendario calendario) {
         return "/calendario/modifica";
     }
+    
+    @GetMapping("/inicio")
+    public String calendarioInicio(Model model) {
+        var calendarios = calendarioService.getCalendarios(true);
+        model.addAttribute("calendarios", calendarios);
+        model.addAttribute("totalCalendarios", calendarios.size());
+        return "/calendario/inicio";
+    }
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;

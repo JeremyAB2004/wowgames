@@ -222,5 +222,53 @@
                 </div>
             </div>
         </section>
+        
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section class="container" th:fragment="inicioCalendario">
+            <div class="row my-5" th:if="${calendarios != null and !calendarios.empty}">
+                <div id="carouselExample" class="carousel slide mb-3">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/img/banner1.png" alt=""/>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <h2 style="color:purple; text-align:center">¡Próximos Torneos!</h2>
+                <h2 style="color:purple">Torneos de eSports</h2>
+                <div class="col-12">
+                    
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item" th:each="calendario, contador : ${calendarios}">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" 
+                                    data-bs-toggle="collapse" 
+                                    th:data-bs-target="'#collapse' + ${calendario.idCalendario}" 
+                                    aria-expanded="true" 
+                                    th:aria-controls="'collapse' + ${calendario.idCalendario}">
+                                    [[${calendario.titulo}]]
+                                </button>
+                            </h2>
+                            <div th:id="'collapse' + ${calendario.idCalendario}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    [[${calendario.descripcion}]]<br>
+                                    <b>Premio:</b> [[${calendario.premio}]] dólares<br>
+                                    <b>Región:</b> [[${calendario.region}]]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
     </body>
 </html>

@@ -20,7 +20,7 @@
                 <div class="container-fluid">
                     <!-- Logo -->
                     <a class="navbar-brand" href="#">
-                        <img th:src="@{/img/logo.png}" alt="Logo" width="150" height="60" class="d-inline-block align-text-top">
+                        <img src="/img/logo.png" alt="Logo" width="150" height="60" class="d-inline-block align-text-top">
                     </a>
                     <!-- Botón para vista móvil -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,25 +30,25 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#inicio">Inicio</a>
+                                <a class="nav-link" href="#inicio">[[#{header.inicio}]]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/juego/inicio">Juegos</a>
+                                <a class="nav-link" href="/juego/inicio">[[#{header.juegos}]]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#calendario">Calendario</a>
+                                <a class="nav-link" href="/calendario/inicio">[[#{header.calendario}]]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/noticia/inicio">Noticias</a>
+                                <a class="nav-link" href="/noticia/inicio">[[#{header.noticias}]]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/foro/inicio">Foros</a>
+                                <a class="nav-link" href="/foro/inicio">[[#{header.foros}]]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/transmision/inicio">Transmisión</a>
+                                <a class="nav-link" href="/transmision/inicio">[[#{titulo.transmision}]]</a>
                             </li>
                             <!-- Dropdown de Administración -->
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                                 <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Administración
                                 </a>
@@ -57,11 +57,19 @@
                                     <li><a class="dropdown-item" href="/transmision/listado">Transmisiones</a></li>
                                     <li><a class="dropdown-item" href="/noticia/listado">Noticias</a></li>
                                     <li><a class="dropdown-item" href="/juego/listado">Juegos</a></li>
-                                    <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                                    <li><a class="dropdown-item" href="/usuario/listado">Usuarios</a></li>
+                                    <li><a class="dropdown-item" href="/usuario/miperfil">Mi perfil</a></li>
+                                    <li>
+                                        <form method="post" th:action="@{/logout}" class="dropdown-item" style="padding:0">
+                                            <button class="btn">
+                                                Cerrar sesión
+                                            </button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#ingresar">Ingresar</a>
+                            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                                <a class="nav-link" href="/login">[[#{header.ingresar}]]</a>
                             </li>
                         </ul>
                     </div>
@@ -73,8 +81,8 @@
             <div class="container text-center">
                 <!-- Idiomas -->
                 <div class="mb-3">
-                    <a href="#" class="text-white text-decoration-none me-3">Español</a>
-                    <a href="#" class="text-white text-decoration-none">Inglés</a>
+                    <a th:href="@{/(lang=es)}" class="text-white text-decoration-none me-3">Español</a>
+                    <a th:href="@{/(lang=en)}" class="text-white text-decoration-none">Inglés</a>
                 </div>
                 <!-- Redes sociales -->
                 <div class="mb-3">

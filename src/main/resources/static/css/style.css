@@ -11,3 +11,31 @@ HEADER
 .navbar-custom .nav-link:hover {
     color: #d3c0f7;
 }
+
+
+  #perfil {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: auto;
+  }
+  h2 {
+    text-align: center;
+  }
+  .perfil-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .perfil-detalle {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  label {
+    font-weight: bold;
+  }
